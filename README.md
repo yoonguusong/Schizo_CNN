@@ -56,6 +56,8 @@ dense_2(Dense)                            (None, 512  [this can be adjusted by u
 dense_3(Dense)                            (None, 1    [this can be adjusted by user converting argument using list])
 ```
 ## Testing 
+on work
+~~hope will be finished in next week~~
 
 
 
