@@ -12,11 +12,11 @@ contact to [Schizo_CNN developer](https://github.com/yoonguusong) to learn about
 To use the Schizo_CNN library, either clone this repository and install the requirements listed in `setup.py` ~~or install directly with pip.~~
 
 ## Preprocessing
-<img src="./data/data_example_healthy.jpg" width="50%"> <img src="./data/data_example_schizophrenia.jpg" width="50%">
+<img src="./data/data_example_healthy.jpg" width="40%"> <img src="./data/data_example_schizophrenia.jpg" width="40%">
 
-<p>
-    <img src="./data/data_example_healthy.jpg" width = "300" alt>
-    <em>healthy subject data</em>
+<p float="left">
+  <img src="./data/data_example_healthy.jpg" width="100" />
+  <img src="./data/data_example_schizophrenia.jpg" width="100" /> 
 </p>
 
 ## Training
