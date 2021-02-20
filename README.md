@@ -10,8 +10,7 @@ contact to [Schizo_CNN developer](https://github.com/yoonguusong) to learn about
 # Instructions
 
 To use the Schizo_CNN library, either clone this repository and install the requirements listed in `setup.py` ~~or install directly with pip.~~
-![Tux, the Linux mascot](./data/data_example_healthy.jpg)
-![Tux, the Linux mascot](./data/data_example_schizophrenia.jpg)
+
 ## Preprocessing
 <p>
     <img src="./data/data_example_healthy.jpg" alt>
@@ -29,17 +28,6 @@ For a given `/path/to/training/data`, the following script will train the dense 
 ```
 
 Scan-to-atlas registration can be enabled by providing an atlas file with the `--atlas atlas.npz` command line flag. If you'd like to train using the original dense CVPR network (no diffeomorphism), use the `--int-steps 0` flag to specify no flow integration steps. Use the `--help` flag to inspect all of the command line options that can be used to fine-tune network architecture and training.
-
-
-## Registration
-
-If you simply want to register two images, you can use the `register.py` script with the desired model file. For example, if we have a model `model.h5` trained to register a subject (moving) to an atlas (fixed), we could run:
-
-```
-./scripts/tf/register.py --moving moving.nii.gz --fixed atlas.nii.gz --moved warped.nii.gz --model model.h5 --gpu 0
-```
-
-This will save the moved image to `warped.nii.gz`. To also save the predicted deformation field, use the `--save-warp` flag. Both npz or nifty files can be used as input/output in this script.
 
 
 ## Testing (measuring Dice scores)
