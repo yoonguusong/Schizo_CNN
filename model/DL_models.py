@@ -69,7 +69,7 @@ def keras_whole_models(subdirs, weights='imagenet', batch_size=100, epochs=30, p
     # epochs =30
     # batch_size=100
     # subdirs=['F:\\Dataset\\Schizophrenia_CNN\\image_tif_copy\\Train\\h', 'F:\\Dataset\\Schizophrenia_CNN\\image_tif_copy\\Train\\s','F:\\Dataset\\Schizophrenia_CNN\\image_tif_copy\\Validation\\h','F:\\Dataset\\Schizophrenia_CNN\\image_tif_copy\\Validation\\s','F:\\Dataset\\Schizophrenia_CNN\\image_tif_copy\\Test\\h','F:\\Dataset\\Schizophrenia_CNN\\image_tif_copy\\Test\\s']
-
+    # param_denselayer=[2048,512,1]
 
     dirs_train = [train for train in subdirs if 'Train' in train]
     dir_train = os.path.dirname(dirs_train[0])
@@ -94,7 +94,12 @@ def keras_whole_models(subdirs, weights='imagenet', batch_size=100, epochs=30, p
             model = keras_one_model(func_name, inputshape =(150,150) , param_denselayer=param_denselayer, weights=weights)
         except:
             print("Exception : {}".format(func_name))
+
+        #model summary & To check each keras.application final output shape
+        model_final_arch[func_name]=model.layers[0].output_shape
         model.summary()
+
+        #model compile
         model.compile(loss='binary_crossentropy', optimizer=optimizers.RMSprop(lr=1e-4), metrics=['acc'])
         train_generator = train_datagen.flow_from_directory(dir_train, target_size=(150, 150), batch_size=batch_size,
                                                             class_mode='binary')
