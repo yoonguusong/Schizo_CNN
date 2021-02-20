@@ -14,10 +14,6 @@ To use the Schizo_CNN library, either clone this repository and install the requ
 ## Preprocessing
 <img src="./data/data_example_healthy.jpg" width="40%"> <img src="./data/data_example_schizophrenia.jpg" width="40%">
 
-<p float="left">
-  <img src="./data/data_example_healthy.jpg" width="100" />
-  <img src="./data/data_example_schizophrenia.jpg" width="100" /> 
-</p>
 
 ## Training
 
