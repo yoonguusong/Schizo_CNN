@@ -38,11 +38,23 @@ dataset(preprocessed)
 This training, validation, test ratio can be adjusted.
 
 ## Training
-on keras.application, there are ['DenseNet121', 'DenseNet169', 'DenseNet201', 'InceptionResNetV2', 'InceptionV3', 
+on keras.application, there are many architecture we can apply. 
+
+['DenseNet121', 'DenseNet169', 'DenseNet201', 'InceptionResNetV2', 'InceptionV3', 
 'MobileNet', 'MobileNetV2', 'NASNetLarge', 'NASNetMobile', 'ResNet101', 'ResNet101V2', 'ResNet152', 'ResNet152V2',
  'ResNet50', 'ResNet50V2', 'VGG16', 'VGG19', 'Xception', 'keras_modules_injection']
 
+This algorithm train the dataset on whole archtecture on keras.application and save the model & figures on  `.save_model/` 
 
+you can adjust parameter of dense layer(fully connected layer) 
+```
+layer(type)                               output Shape
+vgg16(keras.application model)            (None, 4, 4, 512)
+flatten(Flatten)                          (None, 8192)
+dense_1(Dense)                            (None, 2048 [this can be adjusted by user converting argument using list])
+dense_2(Dense)                            (None, 512  [this can be adjusted by user converting argument using list])
+dense_3(Dense)                            (None, 1    [this can be adjusted by user converting argument using list])
+```
 ## Testing 
 
 
