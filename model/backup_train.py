@@ -1,4 +1,4 @@
-#import 3rd paety
+#import 3rd party
 
 
 #local imports

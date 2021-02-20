@@ -1,8 +1,18 @@
-#import 3rd paety
+#import 3rd party
+# None
 
 
 #local imports
-from model import DL_models, file_arrange as fa
+from model import file_arrange as fa
+from model import DL_models
+
+
+#check gpu is available
+from keras import backend as K
+print(K.tensorflow_backend._get_available_gpus())
+
+from tensorflow.python.client import device_lib
+print(device_lib.list_local_devices())
 
 #To use the code, change the following variables in your system
 #directory of dataset
@@ -45,7 +55,7 @@ img_size= fa.size_check(dir_img)
 sizes = [size for size in img_size.keys()]
 input_shape = sizes[0]+(3,)
 
-DL_models.DL_models(dir_subdir_copy)
+DL_models.keras_whole_models(dir_subdir_copy, weights, batch_size=100, epochs=30, param_denselayer=[2048,512,1])
 
 print('time for copying data')
 fa.tac()
