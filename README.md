@@ -13,7 +13,7 @@ To use the Schizo_CNN library, either clone this repository and install the requ
 
 ## Preprocessing
 <p>
-    <img src="./data/data_example_healthy.jpg" alt>
+    <img src="./data/data_example_healthy.jpg" width = "300" alt>
     <em>healthy subject data</em>
 </p>
 
