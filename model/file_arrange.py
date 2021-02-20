@@ -169,7 +169,7 @@ def copy_files_PB(dir, src, dst, nums_pp, file_person_num_digit=[5,6], train_pct
         #shuffle list to randomly select training, val, test data
 
 
-        num_tr, num_val, num_tst = data_diver(len(nums_pp[cls]), train_pct=train_pct, test_pct=test_pct,
+        num_tr, num_val, num_tst = data_divider(len(nums_pp[cls]), train_pct=train_pct, test_pct=test_pct,
                                               val_pct=val_pct, test_val_combine=test_val_combine)
 
         num_trains = set(random.sample(list(nums_pp[cls]), num_tr))
@@ -249,7 +249,7 @@ def copy_files_notPB(dir, src, dst, train_pct=0.8, test_pct=0.1,
 
         #shuffle list to randomly select training, val, test data
         random.shuffle(src[cls])
-        num_tr, num_val, num_tst = data_diver(len(src[cls]), train_pct=train_pct, test_pct=test_pct,
+        num_tr, num_val, num_tst = data_divider(len(src[cls]), train_pct=train_pct, test_pct=test_pct,
                                               val_pct=val_pct, test_val_combine=test_val_combine)
         if explain:
             print('-------------before copy the data-------------')
@@ -391,8 +391,9 @@ def find_whole_subdir(dir):
             dir_dcm.append(dir_root)
     return dir_dcm
 
-def data_diver(data_size, train_pct=0.8, test_pct=0.1, val_pct=0.1, test_val_combine=True):
+def data_divider(data_size, train_pct=0.8, test_pct=0.1, val_pct=0.1, test_val_combine=True):
     '''
+    divide the dataset into training, validation, test set
 
     :param data_size: data lists
     :param train_pct: train data percentage
