@@ -41,7 +41,7 @@ parser.add_argument('--weights', default='imagenet',  help='"imagenet or None" b
 parser.add_argument('--batch-size', default=100, type=int,  help='batch size (default: 100)')
 parser.add_argument('--epochs', default=30, type=int, help='number of training epochs (default: 30)')
 parser.add_argument('--gpu', default='0', help='GPU ID numbers (default: 0)')
-parser.add_argument('--param-denselayer', default=[2048,512,2], nargs='+', help='dense layer parameter (default : [2048,512,1])')
+parser.add_argument('--param-denselayer', default=[2048,512,1], nargs='+', help='dense layer parameter (default : [2048,512,1])')
 
 
 
