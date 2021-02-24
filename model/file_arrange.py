@@ -7,7 +7,7 @@ import random
 from shutil import copyfile, move
 import copy
 import time
-
+import tensorflow as tf
 
 
 def data_arrange(dir, pp_standard=False, file_cls_name_digit = 4, file_person_num_digit=[5,6], train_ratio = 0.8, val_ratio = 0.1, test_ratio=0.1, test_val_combine=False,  expln = True ):
@@ -26,6 +26,7 @@ def data_arrange(dir, pp_standard=False, file_cls_name_digit = 4, file_person_nu
     :param Train_val_ratio: Training ratio
     :param val_ratio: validation ratio
     :param test_ratio: test ratio
+    :param test_val_combine: binary, decide whether test & validation set will be combined when divide dataset into training, test, validation
     :param explain: to print explanation on dataset
 
     :return: subdirectory of arranged dataset

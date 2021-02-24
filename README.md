@@ -55,6 +55,12 @@ dense_1(Dense)                            (None, 2048 [this can be adjusted by u
 dense_2(Dense)                            (None, 512  [this can be adjusted by user converting argument using list])
 dense_3(Dense)                            (None, 1    [this can be adjusted by user converting argument using list])
 ```
+
+Training example
+```
+python argparse_ex.py F:\\Dataset\\Schizophrenia_CNN\\image_tif
+```
+
 ## Testing 
 on work
 ~~hope will be finished in next week~~
