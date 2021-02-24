@@ -267,38 +267,3 @@ def setup_device(gpuid=None):
         os.environ['CUDA_VISIBLE_DEVICES'] = '-1'
 
     return device, nb_devices
-
-
-# 이거 확인해볼것
-# # plot해서 저장하는거
-# # .h로 save해야됨
-#
-# from PIL import Image
-# dir_tif = 'F:\\Dataset\\Schizophrenia_CNN\\image_tif'
-# for i in os.listdir(dir_tif):
-#     print(i)
-#     pwd_tif = os.path.join(dir_tif, i)
-# im = Image.open(pwd_tif)
-# import numpy
-# imarray= numpy.array(im)
-# imarray[:, :, 0].max()
-# imarray[:, :, 0].min()
-# imarray[:, :, 1].max()
-# imarray[:, :, 1].min()
-# imarray[:, :, 2].max()
-# imarray[:, :, 2].min()
-#
-#
-# train_datagen = ImageDataGenerator(rescale=1./255)
-# test_datagen = ImageDataGenerator(rescale=1./255)
-# train_generator = train_datagen.flow_from_directory(dir_train, target_size=(150, 150), batch_size=100, class_mode ='binary')
-# validation_generator = test_datagen.flow_from_directory(dir_val, target_size=(150,150), batch_size=100, class_mode='binary')
-#
-# for data_batch, labels_batch in train_generator:
-#     print('data_batch.shape : ', data_batch.shape)
-#     print('labels_batch.shape : ', labels_batch.shape)
-#     break
-#
-# history=model.fit_generator(train_generator, steps_per_epoch=10, epochs=2, validation_data=validation_generator, validation_steps=50)
-# dir_save_file = 'F:\\Dataset\\Schizophrenia_CNN\\save_model\\model.h5'
-# model.save('dir_save_file')
