@@ -206,7 +206,7 @@ def cal_batch_steps_per_epoch(dir_train, batch):
     :return: number of steps_per_epoch
     '''
     # dir_train = 'F:\\Dataset\\Schizophrenia_CNN\\image_tif_copy\\Train'
-    # batch =100
+    # batch =5
     num_files = 0
     for cls in os.listdir(dir_train):
         # print(cls)
