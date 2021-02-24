@@ -41,7 +41,7 @@ parser.add_argument('--weights', default='imagenet',  help='"imagenet or None" b
 parser.add_argument('--batch-size', default=100,  help='batch size (default: 100)')
 parser.add_argument('--epochs', default=30,  help='number of training epochs (default: 30)')
 parser.add_argument('--gpu', default='0', help='GPU ID numbers (default: 0)')
-parser.add_argument('--param_denselayer', default=[2048,512,2], nargs='+', help='dense layer parameter (default : [2048,512,1])')
+parser.add_argument('--param-denselayer', default=[2048,512,2], nargs='+', help='dense layer parameter (default : [2048,512,1])')
 
 
 
@@ -82,16 +82,16 @@ fa.tac()
 
 
 
-# # deep learning
-# fa.tic()
-# img_size= fa.size_check(args.directory)
-# sizes = [size for size in img_size.keys()]
-# input_shape = sizes[0]+(3,)
-#
-# DL_models.keras_whole_models(dir_subdir_copy, weights, batch_size=100, epochs=30, param_denselayer=[2048,512,1])
-#
-# print('time for copying data')
-# fa.tac()
+# deep learning
+fa.tic()
+img_size= fa.size_check(args.directory)
+sizes = [size for size in img_size.keys()]
+input_shape = sizes[0]+(3,)
+
+DL_models.keras_whole_models(dir_subdir_copy, weights=args.weights, batch_size=args.batch_size, epochs=args.epochs, param_denselayer=args.param_denselayer)
+
+print('time for copying data')
+fa.tac()
 
 
 
