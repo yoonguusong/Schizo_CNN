@@ -1,12 +1,12 @@
 import setuptools
 
 setuptools.setup(
-    name='voxelmorph',
+    name='schizo_CNN',
     version='0.1',
     license='gpl-3.0',
-    description='Image Registration with Convolutional Networks',
-    url='https://github.com/voxelmorph/voxelmorph',
-    keywords=['deformation', 'registration', 'imaging', 'cnn', 'mri'],
+    description='Schizophrenia image data Classification using keras.applications',
+    url='https://github.com/yoonguusong/Schizo_CNN',
+    keywords=['Schizophrenia','classification', 'imaging', 'tif', 'keras'],
     packages=setuptools.find_packages(),
     python_requires='>=3.6',
     classifiers=[
@@ -16,11 +16,12 @@ setuptools.setup(
         'Operating System :: OS Independent',
     ],
     install_requires=[
+        'tensorflow',
+        'keras',
         'scikit-image',
-        'h5py',
+        'matplotlib',
         'numpy',
         'scipy',
-        'nibabel',
-        'neurite',
+        'shutil',
     ]
 )
