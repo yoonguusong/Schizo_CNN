@@ -91,7 +91,7 @@ def keras_whole_models(subdirs, weights='imagenet', batch_size=100, epochs=30, p
     func_namesAPP = [func_APP[0] for func_APP in getmembers(APP, isfunction)]
     model_final_arch = {}
 
-    # dir_log = os.path.join(os.getcwd(), 'logs', 'log_{}.txt'.format(time_cur))
+    dir_root = os.path.dirname(os.getcwd())
 
 
     for func_name in func_namesAPP:
@@ -122,7 +122,7 @@ def keras_whole_models(subdirs, weights='imagenet', batch_size=100, epochs=30, p
         # Callbacks
         # ModelCheckpoint
         save_callback = '{}_{}{}{}.h5'.format(time_cur, func_name, '_pretrain' if weights == 'imagenet' else '', '_callback')
-        dir_callback = os.path.join(os.getcwd(), 'save_model', save_callback)
+        dir_callback = os.path.join(dir_root, 'save_model', save_callback)
         checkpoint = ModelCheckpoint(dir_callback, monitor='val_loss',verbose=1, save_best_only=True,mode='auto')
 
         # ReduceLROnPlateau
@@ -130,7 +130,7 @@ def keras_whole_models(subdirs, weights='imagenet', batch_size=100, epochs=30, p
 
         # CSVLogger
         save_csv = '{}_{}{}.csv'.format(time_cur, func_name, '_pretrain' if weights == 'imagenet' else '')
-        filename = os.path.join(os.getcwd(), 'save_model', save_csv)
+        filename = os.path.join(dir_root, 'save_model', save_csv)
         csvlog = CSVLogger(filename, separator=',', append=False)
 
         callbacks_list = [checkpoint, reduceLR, csvlog]
@@ -146,24 +146,25 @@ def keras_whole_models(subdirs, weights='imagenet', batch_size=100, epochs=30, p
         history.history
         # Save final model
         save_model_name = '{}_{}_{}'.format(time_cur, func_name, 'pretrain' if weights=='imagenet' else _)
-        dir_save_file = os.path.join(os.getcwd(), 'save_model', save_model_name+'.h5')
+        dir_save_file = os.path.join(dir_root, 'save_model', save_model_name+'.h5')
         model.save(dir_save_file)
-        save_plot(history, save_model_name, show=False, save=True)
+        save_plot(dir_root,history, save_model_name, show=False, save=True)
         print()
 
 
 
-def save_plot(history, dir_save, show=False, save=True):
+def save_plot(dir_root, history, save_name, show=False, save=True):
     '''
     plot the trained model and save
-
+    :param dir_root: package root directory
     :param history: keras history class
+    :param save_name: file save name
     :param show: binary
     :param save: binary
     :return:
     '''
     # dir_save='20210220_VGG16_pretrain'
-    dir_save[9:]
+    # dir_save[9:]
 
 
     acc = history.history['acc']
@@ -174,18 +175,18 @@ def save_plot(history, dir_save, show=False, save=True):
     epochs = range(1, len(acc) + 1)
     plt.plot(epochs, acc, 'bo', label='Training acc')
     plt.plot(epochs, val_acc, 'b', label='Validation acc')
-    plt.title('Training and validation accuracy on {}'.format(dir_save[9:]))
+    plt.title('Training and validation accuracy on {}'.format(save_name[9:]))
     plt.legend()
-    dir_save_file = os.path.join(os.getcwd(), 'save_model', dir_save+"_Acc")
+    dir_save_file = os.path.join(dir_root, 'save_model', save_name+"_Acc")
     plt.savefig(dir_save_file)
 
     plt.figure()
     plt.plot(epochs, loss, 'bo', label='Training loss')
     plt.plot(epochs, val_loss, 'b', label='Validation loss')
-    plt.title('Training and validation loss{}'.format(dir_save[9:]))
+    plt.title('Training and validation loss{}'.format(save_name[9:]))
     plt.legend()
     plt.show()
-    dir_save_file = os.path.join(os.getcwd(), 'save_model', dir_save+"_loss")
+    dir_save_file = os.path.join(dir_root, 'save_model', save_name+"_loss")
     plt.savefig(dir_save_file)
 
     plt.close('all')
