@@ -13,7 +13,7 @@ import matplotlib.pyplot as plt
 from inspect import getmembers, isfunction
 
 
-def keras_one_model(func_name, inputshape =(150,150) , param_denselayer=[2048,512,1], weights = None):
+def keras_one_model(func_name, inputshape =(150,150) , param_denselayer=[2048,512,2], weights = None):
     '''
     train one model from the keras.application
     only thing to adjust is to decide which denselayer parameter should be applied
@@ -91,11 +91,11 @@ def keras_whole_models(subdirs, weights='imagenet', batch_size=100, epochs=30, p
     func_namesAPP = [func_APP[0] for func_APP in getmembers(APP, isfunction)]
     model_final_arch = {}
 
+    # dir_root = os.getcwd()
     dir_root = os.path.dirname(os.getcwd())
 
-
     for func_name in func_namesAPP:
-        # func_name=func_namesAPP[-4]
+        # func_name=func_namesAPP[0]
         print(func_name)
         # save_log(dir_log, func_name)
         try:
@@ -113,6 +113,12 @@ def keras_whole_models(subdirs, weights='imagenet', batch_size=100, epochs=30, p
                                                             class_mode='binary')
         validation_generator = test_datagen.flow_from_directory(dir_val, target_size=(150, 150), batch_size=batch_size,
                                                                 class_mode='binary')
+
+        # to check batch, label size in generator
+        # for batch, labels in validation_generator:
+        #     print(batch.shape)
+        #     print(labels.shape)
+        #     break
 
         steps_per_epoch=cal_batch_steps_per_epoch(dir_train, batch_size)
         validation_steps = cal_batch_steps_per_epoch(dir_val, batch_size)
