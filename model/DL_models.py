@@ -38,7 +38,7 @@ def keras_one_model(func_name, inputshape =(150,150) , param_denselayer=[2048,51
         additional_model.add(layers.Dense(param, activation='relu'))
     return additional_model
 
-def keras_whole_models(subdirs, weights='imagenet', batch_size=100, epochs=30, param_denselayer=[2048,512,1]):
+def keras_whole_models(subdirs, weights='imagenet', batch_size=100, epochs=30, param_denselayer=[2048,512,2]):
     '''
     training dataset through whole keras.application deep learning architecture
     and save the trained model and save the plot
@@ -70,7 +70,7 @@ def keras_whole_models(subdirs, weights='imagenet', batch_size=100, epochs=30, p
     # epochs =30
     # batch_size=100
     # subdirs=['F:\\Dataset\\Schizophrenia_CNN\\image_tif_copy\\Train\\h', 'F:\\Dataset\\Schizophrenia_CNN\\image_tif_copy\\Train\\s','F:\\Dataset\\Schizophrenia_CNN\\image_tif_copy\\Validation\\h','F:\\Dataset\\Schizophrenia_CNN\\image_tif_copy\\Validation\\s','F:\\Dataset\\Schizophrenia_CNN\\image_tif_copy\\Test\\h','F:\\Dataset\\Schizophrenia_CNN\\image_tif_copy\\Test\\s']
-    # param_denselayer=[2048,512,1]
+    # param_denselayer=[2048,512,2]
 
     # Current Date
     time_cur = time.strftime('%Y%m%d')
