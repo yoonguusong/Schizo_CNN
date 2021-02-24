@@ -93,9 +93,10 @@ def keras_whole_models(subdirs, weights='imagenet', batch_size=100, epochs=30, p
 
     # dir_root = os.getcwd()
     dir_root = os.path.dirname(os.getcwd())
-
+    #delete later
+    func_namesAPP=func_namesAPP[-4]
     for func_name in func_namesAPP:
-        # func_name=func_namesAPP[0]
+        # func_name=func_namesAPP[-4]
         print(func_name)
         # save_log(dir_log, func_name)
         try:
@@ -225,12 +226,12 @@ def save_log(dir_log , messages):
     '''
 
     if os.path.exists(dir_log):
-        f = open(dir_log, 'w')
+        f = open(dir_log, 'a')
         f.write(messages)
         f.write('\n')
         f.close()
     else:
-        f = open(dir_log, 'a')
+        f = open(dir_log, 'w')
         f.write(messages)
         f.write('\n')
         f.close()
