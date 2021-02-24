@@ -50,7 +50,7 @@ args = parser.parse_args()
 
 
 # dir_img = 'F:\\Dataset\\Schizophrenia_CNN\\image_tif'
-#classification digit in the picture, count first from 0
+# classification digit in the picture, count first from 0
 # cls_digit = 4
 # file_person_num_digit = [5,6]
 # train_ratio =0.8
@@ -75,6 +75,7 @@ else:
         dic_HS_num, dic_HS_list, dic_HS_patient = fa.about_dir(args.directory, file_cls_name_digit=args.cls_index,
                                                                file_person_num_digit=args.person_index, expln=args.expln)
     dir_subdir_copy = fa.mksubdirs(args.directory, list(dic_HS_num.keys()))
+
 # to check how long does it take to copy the dataset --> end point
 print('time for copying data')
 fa.tac()
@@ -83,7 +84,7 @@ fa.tac()
 
 # # deep learning
 # fa.tic()
-# img_size= fa.size_check(dir_img)
+# img_size= fa.size_check(args.directory)
 # sizes = [size for size in img_size.keys()]
 # input_shape = sizes[0]+(3,)
 #

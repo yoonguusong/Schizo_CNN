@@ -7,6 +7,7 @@ from keras.applications import VGG16
 from keras.preprocessing.image import ImageDataGenerator
 from keras import models, layers, optimizers
 from keras import applications as APP
+from keras.callbacks import ModelCheckpoint, EarlyStopping, LearningRateScheduler, ReduceLROnPlateau, CSVLogger
 from keras.preprocessing.image import ImageDataGenerator
 import matplotlib.pyplot as plt
 from inspect import getmembers, isfunction
@@ -71,6 +72,9 @@ def keras_whole_models(subdirs, weights='imagenet', batch_size=100, epochs=30, p
     # subdirs=['F:\\Dataset\\Schizophrenia_CNN\\image_tif_copy\\Train\\h', 'F:\\Dataset\\Schizophrenia_CNN\\image_tif_copy\\Train\\s','F:\\Dataset\\Schizophrenia_CNN\\image_tif_copy\\Validation\\h','F:\\Dataset\\Schizophrenia_CNN\\image_tif_copy\\Validation\\s','F:\\Dataset\\Schizophrenia_CNN\\image_tif_copy\\Test\\h','F:\\Dataset\\Schizophrenia_CNN\\image_tif_copy\\Test\\s']
     # param_denselayer=[2048,512,1]
 
+    # Current Date
+    time_cur = time.strftime('%Y%m%d')
+
     dirs_train = [train for train in subdirs if 'Train' in train]
     dir_train = os.path.dirname(dirs_train[0])
     dirs_test = [test for test in subdirs if 'Test' in test]
@@ -85,11 +89,15 @@ def keras_whole_models(subdirs, weights='imagenet', batch_size=100, epochs=30, p
     # find whole functions in keras.applications such as Xception, VGG16, VGG19 ...
     # such names Xception, VGG16, VGG19 are not module, it's function name
     func_namesAPP = [func_APP[0] for func_APP in getmembers(APP, isfunction)]
-
     model_final_arch = {}
+
+    # dir_log = os.path.join(os.getcwd(), 'logs', 'log_{}.txt'.format(time_cur))
+
+
     for func_name in func_namesAPP:
         # func_name=func_namesAPP[-4]
         print(func_name)
+        # save_log(dir_log, func_name)
         try:
             model = keras_one_model(func_name, inputshape =(150,150) , param_denselayer=param_denselayer, weights=weights)
         except:
@@ -107,9 +115,36 @@ def keras_whole_models(subdirs, weights='imagenet', batch_size=100, epochs=30, p
                                                                 class_mode='binary')
 
         steps_per_epoch=cal_batch_steps_per_epoch(dir_train, batch_size)
-        history = model.fit_generator(train_generator, steps_per_epoch=steps_per_epoch, epochs=epochs,
-                                      validation_data=validation_generator, validation_steps=50)
-        time_cur = time.strftime('%Y%m%d')
+        validation_steps = cal_batch_steps_per_epoch(dir_val, batch_size)
+
+
+
+        # Callbacks
+        # ModelCheckpoint
+        save_callback = '{}_{}{}{}.h5'.format(time_cur, func_name, '_pretrain' if weights == 'imagenet' else '', '_callback')
+        dir_callback = os.path.join(os.getcwd(), 'save_model', save_callback)
+        checkpoint = ModelCheckpoint(dir_callback, monitor='val_loss',verbose=1, save_best_only=True,mode='auto')
+
+        # ReduceLROnPlateau
+        reduceLR = ReduceLROnPlateau(monitor='val_loss', factor=0.1, patience=5)
+
+        # CSVLogger
+        save_csv = '{}_{}{}.csv'.format(time_cur, func_name, '_pretrain' if weights == 'imagenet' else '')
+        filename = os.path.join(os.getcwd(), 'save_model', save_csv)
+        csvlog = CSVLogger(filename, separator=',', append=False)
+
+        callbacks_list = [checkpoint, reduceLR, csvlog]
+        '''
+        #this only runs epoch 3
+        
+        history = model.fit_generator(train_generator, steps_per_epoch=20, epochs=3,callbacks=callbacks_list,
+                                      validation_data=validation_generator, validation_steps=validation_steps)
+        '''
+        # Deep learning fit
+        history = model.fit_generator(train_generator, steps_per_epoch=steps_per_epoch, epochs=epochs,callbacks=callbacks_list,
+                                      validation_data=validation_generator, validation_steps=validation_steps)
+        history.history
+        # Save final model
         save_model_name = '{}_{}_{}'.format(time_cur, func_name, 'pretrain' if weights=='imagenet' else _)
         dir_save_file = os.path.join(os.getcwd(), 'save_model', save_model_name+'.h5')
         model.save(dir_save_file)
@@ -167,12 +202,34 @@ def cal_batch_steps_per_epoch(dir_train, batch):
     # batch =100
     num_files = 0
     for cls in os.listdir(dir_train):
-        print(cls)
+        # print(cls)
         dir_cls = os.path.join(dir_train, cls)
         num_files +=len(os.listdir(dir_cls))
     batch_size =math.ceil(num_files/batch)
 
     return batch_size
+
+def save_log(dir_log , messages):
+    '''
+
+    :param dir_log: log directory
+    :param messages: message save
+    :return:
+    '''
+
+    if os.path.exists(dir_log):
+        f = open(dir_log, 'w')
+        f.write(messages)
+        f.write('\n')
+        f.close()
+    else:
+        f = open(dir_log, 'a')
+        f.write(messages)
+        f.write('\n')
+        f.close()
+
+
+
 
 
 def setup_device(gpuid=None):
