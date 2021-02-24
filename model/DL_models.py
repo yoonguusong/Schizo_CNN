@@ -70,7 +70,7 @@ def keras_whole_models(subdirs, weights='imagenet', batch_size=100, epochs=30, p
     # epochs =30
     # batch_size=100
     # subdirs=['F:\\Dataset\\Schizophrenia_CNN\\image_tif_copy\\Train\\h', 'F:\\Dataset\\Schizophrenia_CNN\\image_tif_copy\\Train\\s','F:\\Dataset\\Schizophrenia_CNN\\image_tif_copy\\Validation\\h','F:\\Dataset\\Schizophrenia_CNN\\image_tif_copy\\Validation\\s','F:\\Dataset\\Schizophrenia_CNN\\image_tif_copy\\Test\\h','F:\\Dataset\\Schizophrenia_CNN\\image_tif_copy\\Test\\s']
-    # param_denselayer=[2048,512,2]
+    # param_denselayer=[2048,512,1]
 
     # Current Date
     time_cur = time.strftime('%Y%m%d')
@@ -95,8 +95,6 @@ def keras_whole_models(subdirs, weights='imagenet', batch_size=100, epochs=30, p
 
 
     for func_name in func_namesAPP:
-        #delete later
-        # func_name=func_namesAPP[-4]
         print('func_name : ', func_name)
         # save_log(dir_log, func_name)
         try:
@@ -157,6 +155,7 @@ def keras_whole_models(subdirs, weights='imagenet', batch_size=100, epochs=30, p
         model.save(dir_save_file)
         save_plot(dir_root,history, save_model_name, show=False, save=True)
         print()
+
 
 
 
